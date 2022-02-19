@@ -2,7 +2,7 @@ package com.example.demo.models;
 
 import javax.persistence.*;
 
-@Entity
+@Entity //Esto le dice a Hibernate que haga una tabla con esta clase
 @Table(name = "usuario")
 public class UsuarioModel {
 

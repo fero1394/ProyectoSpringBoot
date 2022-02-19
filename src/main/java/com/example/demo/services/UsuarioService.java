@@ -11,8 +11,8 @@ import java.util.Optional;
 
 @Service
 public class UsuarioService {
-    @Autowired //para que spring sepa que hay una instancia de service y cual utilizar
 
+    @Autowired //para que spring sepa que hay una instancia de service y cual utilizar
     UsuarioRepository usuarioRepository;
 
     /**
@@ -35,6 +35,10 @@ public class UsuarioService {
      * @param usuario
      * @return
      */
+
+    public ArrayList<UsuarioModel> obtenerPorNombre(String nombre){
+        return usuarioRepository.findByNombre(nombre);
+    }
 
     public UsuarioModel guardarUsuario(UsuarioModel usuario){
         return usuarioRepository.save(usuario);

@@ -8,19 +8,43 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Optional;
 
+/**
+ * @RestController: le dice a spring que esta es su funcion Esto significa que esta clase es un Controlador
+ * @RequestMapping("/usuario"): el mapping nos dice en que direccion del servidor se van a activar los metodos de esta clase
+ * Esto significa que la URL comienza con /usuario (después de la ruta de la aplicación)
+ * @Autowired: importamos el servicio para que se instancie automaticamente por spring. / Esto significa obtener el bean llamado UsuarioSerivice
+ * Que es generado automáticamente por Spring, lo usaremos para manejar los datos
+ * @GetMapping(): para indicarle que cuando llegue una peticion de tipo get desde el navegador o otros, se ejecute este flujo
+ * @RequestParam: significa que es un parámetro de la solicitud GET o POST
+ * @PostMapping(): Se usa para guardar
+ */
+
 @RestController
-@RequestMapping("/usuario")   //el mapping nos dice en que direccion del servidor se va a activar los metodos de esta clase
+@RequestMapping("/usuario")
 public class UsuarioController {
-    @Autowired //importamos el servicio para que se instancie automaticamente por spring
+
+    @Autowired
     UsuarioService usuarioService;
 
-    @GetMapping() //para indicarle que cuando llegue una peticion de tipo get desde el navegador o otros, se ejecute este flujo
-    public ArrayList<UsuarioModel> obtenerUsuarios(){ //vamos a regresar el arreglo de todos los usuarios
-        return usuarioService.obtenerUsuarios(); //lo hacemos con el servicio que programamos anteriormente que se llama obtenerUsuarios
+    /**
+     * obtenerUsuarios(): vamos a regresar el arreglo de todos los usuarios
+     * @return usuarioService.obtenerUsuarios(); Es un metodo programado en la
+     * clase servicio por lo que va a llamar este metodo con la instancia
+     */
+
+    @GetMapping()
+    public ArrayList<UsuarioModel> obtenerUsuarios(){
+        return usuarioService.obtenerUsuarios();
     }
 
+    /**
+     * va a regresar el usuario pero actualizado todos los clientes pueden enviar informacion
+     * dentro de la solicitud http guardada en el modelo
+     * @param usuario
+     * @return
+     */
     @PostMapping()
-    public UsuarioModel guardarUsuarui(@RequestBody UsuarioModel usuario){ //va a regresar el usuario pero actualizado // todos los clientes pueden enviar informacion dentro de la solicitud http
+    public UsuarioModel guardarUsuario(@RequestBody UsuarioModel usuario){
         return this.usuarioService.guardarUsuario(usuario);
     }
 
@@ -42,6 +66,11 @@ public class UsuarioController {
         }else{
             return "No pudo eliminar el usuario con id "+ id;
         }
+    }
+
+    @GetMapping("/nombre")
+    public ArrayList<UsuarioModel> obtenerUsuarioPorNombre(@RequestParam("nombre") String nombre){
+        return this.usuarioService.obtenerPorNombre(nombre);
     }
 
 

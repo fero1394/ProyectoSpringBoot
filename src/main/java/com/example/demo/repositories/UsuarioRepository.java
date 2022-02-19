@@ -6,8 +6,15 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 
+/**
+ * Debe crear el repositorio que contiene los registros
+ * Esto será IMPLEMENTADO AUTOMÁTICAMENTE por Spring en un Bean llamado userRepository
+ * CRUD se refiere a Crear, Leer, Actualizar, Eliminar
+ */
 @Repository
 public interface UsuarioRepository extends CrudRepository<UsuarioModel, Long> {
     public abstract ArrayList<UsuarioModel> findByPrioridad(Integer prioridad);
+
+    public abstract ArrayList<UsuarioModel> findByNombre(String nombre);
 
 }
