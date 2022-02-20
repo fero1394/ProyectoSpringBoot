@@ -32,13 +32,9 @@ public class UsuarioService {
      * id:1
      * nombre:juan
      * email:juan@gmail.com
-     * @param usuario
+     * @param :usuario
      * @return
      */
-
-    public ArrayList<UsuarioModel> obtenerPorNombre(String nombre){
-        return usuarioRepository.findByNombre(nombre);
-    }
 
     public UsuarioModel guardarUsuario(UsuarioModel usuario){
         return usuarioRepository.save(usuario);
@@ -61,5 +57,38 @@ public class UsuarioService {
         }
     }
 
+    /**
+     *Metodo llamado por la clase controller para que service ejecute la logica
+     * este metodo hace un llamado a repositorio para que busque en la BD
+     * @param nombre
+     * @return
+     */
+    public ArrayList<UsuarioModel> obtenerPorNombre(String nombre){
+        return usuarioRepository.findByNombre(nombre);
+    }
 
+    /**
+     * El metodo Usuarios VIP es llamado por una peticion desde controller el cual hace un llamado
+     * a la clase service para que ejecute la logica y seleccione a los usuarios vip y los devuelva
+     * en un arraylist, en este metodo se reutiliza el metodo findByPrioridad ya que los usuarios VIP
+     * estan en el rango de prioridad entre 1 - 5
+     * @return
+     */
+
+    public ArrayList<UsuarioModel> usuariosVIP(){
+        ArrayList listaUsuariosVIP = new ArrayList();
+
+        for(int i = 0;i<=5;i++){
+
+            if(usuarioRepository.findByPrioridad(i).isEmpty()){
+                continue;
+            }
+            else{
+                listaUsuariosVIP.add(usuarioRepository.findByPrioridad(i));
+                //System.out.println(((Object)usuarioRepository.findAll()).getClass().getSimpleName());
+            }
+        }
+        return listaUsuariosVIP;
+
+    }
 }

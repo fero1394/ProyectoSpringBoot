@@ -68,11 +68,24 @@ public class UsuarioController {
         }
     }
 
+    /**
+     * Enpoint /nombre recibe la peticion como get para buscar en la base de datos a un usuario por nombre
+     * @param nombre: variable que recibe el metodo
+     * @return retorna la informacion del usuario pasado por parametro
+     */
     @GetMapping("/nombre")
     public ArrayList<UsuarioModel> obtenerUsuarioPorNombre(@RequestParam("nombre") String nombre){
         return this.usuarioService.obtenerPorNombre(nombre);
     }
 
+    /**
+     * Se crea enpoint /VIP para acceder al listado de los usuarios VIP los cuales estan definidos por la prioridad de 1 - 5
+     * @return regresa un listado con los usuarios VIP
+     */
+    @GetMapping("/VIP")
+    public ArrayList<UsuarioModel> obtenerUsuariosVIP(){
+        return this.usuarioService.usuariosVIP();
+    }
 
 
 }

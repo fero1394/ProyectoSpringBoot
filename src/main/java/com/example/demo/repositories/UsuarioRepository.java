@@ -13,8 +13,15 @@ import java.util.ArrayList;
  */
 @Repository
 public interface UsuarioRepository extends CrudRepository<UsuarioModel, Long> {
+
+
     public abstract ArrayList<UsuarioModel> findByPrioridad(Integer prioridad);
 
+    /**
+     *se crea este metodo findByNombre para buscar en la BD a los usuarios por nombre
+     */
     public abstract ArrayList<UsuarioModel> findByNombre(String nombre);
+
+
 
 }
